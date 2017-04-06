@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Dashboard from './DashboardComponent.js';
+import CreateOutage from './routes/CreateOutage';
+import {
+      BrowserRouter as Router,
+      Route
+} from 'react-router-dom'
+
 
 class App extends Component {
   render() {
     return (
         <MuiThemeProvider>
-        <Dashboard />
+            <Router>
+        <Route exact path="/" component={CreateOutage}/>
+        </Router>
         </MuiThemeProvider>
     );
   }

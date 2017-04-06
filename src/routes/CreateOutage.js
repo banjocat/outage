@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
 
 
 class CreateOutage extends Component {
@@ -58,6 +59,7 @@ class CreateOutage extends Component {
                     errorText='This field is required'
                 />
                 <br />
+                <br />
             </div>
         );
     }
@@ -66,9 +68,11 @@ class CreateOutage extends Component {
         return (
             <div>
                 <Dashboard />
+                <Paper zDepth={3} style={{padding: '2%'}}>
                 {this.TemplatePicker()}
                 {this.Form()}
                 <RaisedButton label='Send Outage' />
+            </Paper>
             </div>
         );
     }

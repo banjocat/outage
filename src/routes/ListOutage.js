@@ -1,6 +1,8 @@
 import React, {Component}  from 'react';
 import Dashboard from './shared/Dashboard';
-import {GridList, GridTile} from 'material-ui/GridList';
+import {List, ListItem} from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+
 
 class ListOutage extends Component {
     constructor(props) {
@@ -20,7 +22,7 @@ class ListOutage extends Component {
             {
                 id: 3,
                 name: 'Comcast is broken',
-                shortDescription: 'Tell Tan to fix this please',
+                shortDescription: 'Jack went to Disney',
             },
         ];
         this.state = {
@@ -30,13 +32,17 @@ class ListOutage extends Component {
 
     Outages = () => {
         const outages = this.state.outages.map( (outage) => 
-            <GridTile
+            <ListItem
                 key={outage.id}
-                title={outage.name}
-                subtitle={outage.shortDescription}
+                primaryText={outage.name}
+                secondaryText={outage.shortDescription}
             />
         );
-        return (outages);
+        return (
+            <List>
+                {outages}
+            </List>
+        );
     }
 
     componentDidMount() {
@@ -49,11 +55,9 @@ class ListOutage extends Component {
         return (
             <div>
                 <Dashboard />
-                <GridList
-                    cellHeight={180}
-                >
+                <Paper zDepth={3}>
                     {this.Outages()}
-                </GridList>
+                </Paper>
             </div>
 
         );

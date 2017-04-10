@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
+import _ from 'lodash';
 
 
 class CreateOutage extends Component {
@@ -13,14 +14,24 @@ class CreateOutage extends Component {
         // Eventually read from database
         const templates = [
             {id: 1, name: 'Simple Outage', fields: [
-                {id: 1, name: 'Outage Title', errorText: 'This field is required' },
-                {id: 2, name: 'Outage Short Description', errorText: 'This field is required'},
+                {id: 1, type: 'TextField',
+                    name: 'title',
+                    hintText: 'Outage Title',
+                    errorText: 'This field is required'
+                },
+                {id: 2,
+                    type: 'TextField',
+                    name: 'short-descritpion',
+                    multiLine: true,
+                    hintText: 'Outage Short Description',
+                    errorText: 'This field is required'
+                },
             ]
             },
         ]
         this.state = {
             templates: templates,
-            pickedTemplate: 1,
+            pickedTemplate: 0,
         }
     }
     componentDidMount() {
@@ -42,24 +53,43 @@ class CreateOutage extends Component {
         )
     }
 
+    DetermineComponent = (value) => {
+        if (value.type === 'TextField') {
+            return (
+                <div key={value.id}>
+                <TextField
+                    key={value.id}
+                    name={value.name}
+                    hintText={value.hintText}
+                    errorText={value.errorText}
+                    multiLine={value.multiLine}
+                />
+                <br />
+                <br />
+            </div>
+            );
+        }
+    }
+
+    GetPickedTemplateFields = () => {
+        // Default to first one
+        let template = this.state.templates[0];
+        _.each(this.state.templates, (item) => {
+            if  item.id == this.state.pickedTemplate {
+                template = item;
+            }
+        });
+        return template;
+    }
+
     Form = () => {
+        const index = this.state.pickedTemplate;
+        const jsx = _.map(this.state.templates[index]['fields'], (value) => {
+            return this.DetermineComponent(value);
+        });
         return (
             <div>
-                <TextField
-                    name='title'
-                    hintText="Outage title"
-                    errorText='This field is required'
-                />
-                <br />
-                <br />
-                <TextField
-                    name='short'
-                    hintText="Outage short description"
-                    multiLine={true}
-                    errorText='This field is required'
-                />
-                <br />
-                <br />
+                {jsx}
             </div>
         );
     }
@@ -70,7 +100,9 @@ class CreateOutage extends Component {
                 <Dashboard />
                 <Paper zDepth={3} style={{padding: '2%'}}>
                 {this.TemplatePicker()}
-                {this.Form()}
+                <form>
+                    {this.Form()}
+                </form>
                 <RaisedButton label='Send Outage' />
             </Paper>
             </div>

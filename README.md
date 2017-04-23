@@ -3,7 +3,7 @@ Is a react practice project. Because everyone needs to know at least a little ja
 
 Like all my practice projects there are set of goals
 #### Goals
-* Should use reactjs
+* ~~Should use reactjs~~
 * Use some cool nosql database (maybe couchdb?)
 * User creation with couchdb
 * User auth with couchd and maybe nginx as well

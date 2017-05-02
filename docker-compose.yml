@@ -1,6 +1,9 @@
 version: '2'
 services:
-    couchdb:
-        image: couchdb
-        ports:
-            - "5984:5984"
+  reactjs:
+    image: banjocat/outage_reactjs
+    build: ./reactjs/.
+    ports:
+      - "8001:80"
+  
+

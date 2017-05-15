@@ -103,13 +103,19 @@ class CreateOutage extends Component {
         else if (value.type === 'Choices') {
             const choices = _.map(value.choices, (choice, key) => {
                 return (
+                <div>
                 <MenuItem key={key} value={choice} primaryText={choice} />
+                <br />
+                </div>
                 )
             });
             return (
+                <div>
                 <SelectField key={value.id} floatingLabelText={value.name}  >
                     {choices}
                 </SelectField>
+                <br />
+                </div>
             );
         }
         else if ( value.type === 'Checkbox' ) {
@@ -119,9 +125,12 @@ class CreateOutage extends Component {
                 )
             });
             return (
+                <div>
                 <SelectField key={value.id} floatingLabelText={value.name}  >
                     {choices}
                 </SelectField>
+                <br />
+                </div>
             );
         }
     }

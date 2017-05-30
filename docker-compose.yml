@@ -1,5 +1,11 @@
 version: '2'
 services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+
   reactjs:
     image: banjocat/outage_reactjs
     build: ./reactjs/.

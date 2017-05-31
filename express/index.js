@@ -3,21 +3,36 @@ const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/test');
 
-var Cat = mongoose.model('Cat',
+/*
+            {id: 1, name: 'Simple Outage', fields: [
+                {id: 1, type: 'TextField',
+                    name: 'title',
+                    hintText: 'Outage Title',
+                    errorText: 'This field is required'
+                },
+                {id: 2,
+                    type: 'TextField',
+                    name: 'short-descritpion',
+                    multiLine: true,
+                    hintText: 'Outage Short Description',
+                    errorText: 'This field is required'
+                },
+            ]
+            },
+            */
+const outageTemplate = mongoose.model('outageTemplate',
     {
-        name: String
+        name: String,
+        fields: [
+            {
+                type: String,
+                hintTest: String,
+                errorText: String,
+                muliLine: Boolean
+            }
+        ]
     }
 );
-
-const kitty = new Cat({ name: 'Patrick' });
-
-kitty.save( (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('meow');
-    }
-});
 
 
 const app = express();

@@ -8,6 +8,8 @@ services:
   reactjs:
     image: banjocat/outage_reactjs
     build: ./reactjs/.
+    environment:
+      EXPRESS_HOST: "express:3000"
     ports:
       - "8001:80"
     depends_on:

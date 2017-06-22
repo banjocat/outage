@@ -2,40 +2,34 @@ import React, {Component}  from 'react';
 import Dashboard from './shared/Dashboard';
 import {List, ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
+import axios from 'axios';
 
 
+const express_host = 'EXPRESS_HOST' in process.env ? process.env.EXPRESS_HOST : 'localhost:3000';
 class ListOutage extends Component {
     constructor(props) {
         super(props);
         // Eventually read from database
-        const outages = [
-            {
-                id: 1,
-                name: 'Postgres is down',
-                shortDescription: 'Postgres is down. Nick must of broke it',
-            },
-            {
-                id: 2,
-                name: 'Rabbitmq is broken',
-                shortDescription: 'Help bugs bunny get his MQ back',
-            },
-            {
-                id: 3,
-                name: 'Comcast is broken',
-                shortDescription: 'Jack went to Disney',
-            },
-        ];
+        const outages  = []
         this.state = {
             outages: outages
         };
     }
 
+    componentDidMount() {
+        axios.get(`http://${express_host}/api/v1/outage`)
+            .then(res => {
+                const outages = res.data;
+                this.setState({outages: outages});
+            });
+    }
+
     Outages = () => {
         const outages = this.state.outages.map( (outage) => 
             <ListItem
-                key={outage.id}
-                primaryText={outage.name}
-                secondaryText={outage.shortDescription}
+                key={outage._id}
+                primaryText={outage.title}
+                secondaryText={outage.description}
             />
         );
         return (
@@ -43,9 +37,6 @@ class ListOutage extends Component {
                 {outages}
             </List>
         );
-    }
-
-    componentDidMount() {
     }
 
     componentWillUnmount() {

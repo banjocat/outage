@@ -34,6 +34,16 @@ app.get('/api/v1/outage', (req, res) => {
     });
 });
 
+app.get('/api/v1/outage/:id', (req, res) => {
+    Outage.find({_id: req.params.id}, (err, outages) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.jsonp(outages);
+        }
+    });
+});
+
 app.post('/api/v1/outage', (req, res) => {
     const outage = new Outage({
         title: req.body.title,

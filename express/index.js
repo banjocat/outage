@@ -1,45 +1,51 @@
 const express = require('express');
+var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/test');
 
-/*
-            {id: 1, name: 'Simple Outage', fields: [
-                {id: 1, type: 'TextField',
-                    name: 'title',
-                    hintText: 'Outage Title',
-                    errorText: 'This field is required'
-                },
-                {id: 2,
-                    type: 'TextField',
-                    name: 'short-descritpion',
-                    multiLine: true,
-                    hintText: 'Outage Short Description',
-                    errorText: 'This field is required'
-                },
-            ]
-            },
-            */
-const outageTemplate = mongoose.model('outageTemplate',
+const Outage = mongoose.model('Outage',
     {
-        name: String,
-        fields: [
-            {
-                type: String,
-                hintTest: String,
-                errorText: String,
-                muliLine: Boolean
+        title: {type: String, required: [true, 'Title required']},
+        description: {type: String, required: [true, 'Description required']},
+        state: {
+            type: String,
+            default: 'open',
+            lowercase: true,
+            validator: (v) => {
+                const choices = ['open', 'progress', 'closed'];
+                return choices.includes(v);
             }
-        ]
+        }
     }
 );
 
-
 const app = express();
+app.use(bodyParser.json());
 
 const port = 3000;
-app.get('/', (req, res) => {
-    res.send('Hello world!');
+app.get('/api/v1/outage', (req, res) => {
+    Outage.find({}, (err, outages) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.jsonp(outages);
+        }
+    });
+});
+
+app.post('/api/v1/outage', (req, res) => {
+    const outage = new Outage({
+        title: req.body.title,
+        description: req.body.description
+    });
+    outage.save( (err) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send('Added');
+        }
+    });
 });
 
 console.log(`Starting express on port ${port}`);

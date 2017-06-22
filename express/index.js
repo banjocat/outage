@@ -2,7 +2,9 @@ const express = require('express');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/test');
+const mongo_host = 'MONGODB' in process.env ? process.env.MONGODB : 'localhost';
+mongoose.connect(`mongodb://${mongo_host}/test`);
+
 
 const Outage = mongoose.model('Outage',
     {

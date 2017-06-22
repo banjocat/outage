@@ -1,15 +1,27 @@
-version: '2'
+version: '3'
 services:
   mongodb:
     image: mongo
     ports:
       - "27017:27017"
       - "28017:28017"
-
   reactjs:
     image: banjocat/outage_reactjs
     build: ./reactjs/.
     ports:
       - "8001:80"
+    depends_on:
+      - express
+  express:
+    image: banjocat/outage_express
+    build: ./express/.
+    environment:
+      MONGODB: mongodb
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+
   
 

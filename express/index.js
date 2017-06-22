@@ -12,9 +12,12 @@ const Outage = mongoose.model('Outage',
             type: String,
             default: 'open',
             lowercase: true,
-            validator: (v) => {
-                const choices = ['open', 'progress', 'closed'];
-                return choices.includes(v);
+            validate: {
+                validator: (v) => {
+                    const choices = ['open', 'progress', 'closed'];
+                    return choices.includes(v);
+                },
+                message: ['{VALUE} is not open|progress|closed']
             }
         }
     }
@@ -29,7 +32,7 @@ app.get('/api/v1/outage', (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.jsonp(outages);
+            res.status(200).jsonp(outages);
         }
     });
 });
@@ -39,9 +42,22 @@ app.get('/api/v1/outage/:id', (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.jsonp(outages);
+            res.status(200).jsonp(outages);
         }
     });
+});
+
+app.put('/api/v1/outage/:id', (req, res) => {
+    Outage.findOneAndUpdate({_id: req.params.id},
+        {state: req.body.state, description: req.body.description},
+        {upsert: false, runValidators: true},
+        (err) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send('updated');
+            }
+        });
 });
 
 app.post('/api/v1/outage', (req, res) => {
@@ -57,6 +73,7 @@ app.post('/api/v1/outage', (req, res) => {
         }
     });
 });
+
 
 console.log(`Starting express on port ${port}`);
 app.listen(port);

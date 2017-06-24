@@ -81,6 +81,11 @@ app.post('/api/v1/outage', (req, res) => {
     });
 });
 
+app.post('/login',
+    passport.authenticate('local', { successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true })
+);
 
 console.log(`Starting express on port ${port}`);
 app.listen(port);

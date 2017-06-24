@@ -8,6 +8,8 @@ services:
   reactjs:
     image: banjocat/outage_reactjs
     build: ./reactjs/.
+    volumes:
+      - './reactjs/nginx.conf:/etc/nginx/conf.d/default.conf'
     environment:
       EXPRESS_HOST: "express:3000"
     ports:

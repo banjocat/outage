@@ -10,5 +10,3 @@ Like all my practice projects there are set of goals
 * ~~User should be able to then create an outage~~
 * ~~User then should be able to search for current outages and their status~~
 * Use mesos to deploy
-
-

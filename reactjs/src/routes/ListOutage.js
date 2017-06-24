@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
 
-const express_host = 'EXPRESS_HOST' in process.env ? process.env.EXPRESS_HOST : 'localhost:3000';
+const express_host = process.env.EXPRESS_HOST ? process.env.EXPRESS_HOST : 'localhost:3000';
 class ListOutage extends Component {
     constructor(props) {
         super(props);

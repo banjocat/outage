@@ -13,45 +13,41 @@ class CreateOutage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            _id: this.props.match.params._id,
             title: "",
             description: "",
-            status: ""
+            state: ""
         }
+        console.log(this.state);
     }
     componentDidMount() {
-        axios.get(`http://${express_host}/api/v1/outage/${this.params._id}`)
+        axios.get(`http://${express_host}/api/v1/outage/${this.state._id}`)
             .then(res => {
-                this.setState({title: res.data.title})
-                this.setState({description: res.data.description})
-                this.setState({status: res.data.status})
+                const data = res.data[0];
+                console.log(data);
+                this.setState({title: data.title})
+                this.setState({description: data.description})
+                this.setState({state: data.state})
             });
     }
 
-    componentWillUnmount() {
-    }
-
-    handleDescritionChange = (event, newString) => {
-        this.setState({description: newString});
-    }
-    handleTitleChange = (event, newString) => {
-        this.setState({title: newString});
-    }
-
     handleSaveOutage = (event) => {
-        axios.put(`http://${express_host}/api/v1/outage`, {
-            title: this.state.title,
-            description: this.state.description
+        console.log(this.state);
+        axios.put(`http://${express_host}/api/v1/outage/${this.state._id}`, {
+            description: this.state.description,
+            state: this.state.state
         })
             .then( (response) => {
                 console.log('Saved');
+                this.props.history.push('/');
             })
             .catch( (err) => {
                 console.log(err);
             });
     }
 
-    handleStatus = (event, index, value) => this.setState({status: value})
-    handleDescritionChange = (event, index, value) => this.setState({description: value})
+    handleStatus = (event, index, value) => this.setState({state: value})
+    handleDescritionChange = (event, value) => this.setState({description: value})
 
     render() {
         return (
@@ -72,6 +68,7 @@ class CreateOutage extends Component {
                             name="Description"
                             multiLine={true}
                             onChange={this.handleDescritionChange}
+                            value={this.state.description}
                             floatingLabelText="Description"
                         />
                         <br />
@@ -79,7 +76,7 @@ class CreateOutage extends Component {
                         <br />
                         <SelectField
                             floatingLabelText="Status"
-                            value={this.state.status}
+                            value={this.state.state}
                             onChange={this.handleStatus}
                         >
                             <MenuItem value="open" primaryText="Open" /> 

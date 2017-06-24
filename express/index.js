@@ -36,9 +36,12 @@ app.use(function(req, res, next) {
 
 const port = 3000;
 app.get('/api/v1/outage', (req, res) => {
-    Outage.find({}, (err, outages) => {
+    const query = Outage.find({});
+    query.$where('this.state != "closed"');
+    query.exec((err, outages) => {
         if (err) {
             res.status(500).send(err);
+            console.log(err);
         } else {
             res.status(200).jsonp(outages);
         }

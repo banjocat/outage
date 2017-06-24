@@ -3,9 +3,10 @@ import Dashboard from './shared/Dashboard';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
-import _ from 'lodash';
+import axios from 'axios';
 
 
+const express_host = process.env.EXPRESS_HOST ? process.env.EXPRESS_HOST : 'localhost:3000';
 class CreateOutage extends Component {
     constructor(props) {
         super(props);
@@ -21,6 +22,26 @@ class CreateOutage extends Component {
     componentWillUnmount() {
     }
 
+    handleDescritionChange = (event, newString) => {
+        this.setState({description: newString});
+    }
+    handleTitleChange = (event, newString) => {
+        this.setState({title: newString});
+    }
+
+    handleSaveOutage = (event) => {
+        axios.post(`http://${express_host}/api/v1/outage`, {
+            title: this.state.title,
+            description: this.state.description
+        })
+            .then( (response) => {
+                console.log('Saved');
+            })
+            .catch( (err) => {
+                console.log(err);
+            });
+    }
+
     render() {
         return (
             <div>
@@ -29,21 +50,23 @@ class CreateOutage extends Component {
                     <form>
                         <TextField
                             name="Title"
-                            hintText="Enter title of outage"
+                            onChange={this.handleTitleChange}
+                            floatingLabelText="Title"
                         />
                         <br />
                         <br />
                         <br />
                         <TextField
                             name="Description"
-                            hintText="Enter what is wrong"
-                            multiLine="true"
+                            multiLine={true}
+                            onChange={this.handleDescritionChange}
+                            floatingLabelText="Description"
                         />
                         <br />
                         <br />
                         <br />
                     </form>
-                    <RaisedButton label='Send Outage' />
+                    <RaisedButton label='Send Outage' onClick={this.handleSaveOutage}/>
                 </Paper>
             </div>
         );

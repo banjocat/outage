@@ -3,6 +3,7 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CreateOutage from './routes/CreateOutage';
 import ListOutage from './routes/ListOutage';
+import ViewOutage from './routes/ViewOutage';
 import {
       BrowserRouter as Router,
       Route
@@ -17,6 +18,7 @@ class App extends Component {
                 <div>
                     <Route exact path="/" component={ListOutage}/>
                     <Route path="/create" component={CreateOutage}/>
+                    <Route path="/update" component={ViewOutage}/>
                 </div>
             </Router>
         </MuiThemeProvider>

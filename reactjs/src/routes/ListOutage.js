@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 const express_host = process.env.EXPRESS_HOST ? process.env.EXPRESS_HOST : 'localhost:3000';
-class ListOutage extends Component {
+class ViewOutage extends Component {
     constructor(props) {
         super(props);
         // Eventually read from database
@@ -55,4 +55,4 @@ class ListOutage extends Component {
     }
 }
 
-export default ListOutage;
+export default ViewOutage;

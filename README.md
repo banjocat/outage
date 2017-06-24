@@ -7,8 +7,7 @@ Like all my practice projects there are set of goals
 * ~~Use some cool nosql database (maybe couchdb?) - Nah use mongodb~~
 * User creation with mongodb
 * User auth with ~~couchdb~~ mongodb and maybe nginx as well
-* User should be able to create an outage form template
-* User should be able to then create an outage form template
+* ~~User should be able to then create an outage~~
 * ~~User then should be able to search for current outages and their status~~
 * Use mesos to deploy
 

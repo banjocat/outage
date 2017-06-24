@@ -8,7 +8,7 @@ build: ## Builds the reactjs docker container
 	@cd ./reactjs && yarn build
 	@docker-compose build
 
-push: build ## Push docker images  - don't push if you are on a mac more for ci/cd
+push: build ## Push docker images
 	@docker-compose push
 
 

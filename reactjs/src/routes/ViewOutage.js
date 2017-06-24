@@ -12,14 +12,19 @@ const express_host = process.env.EXPRESS_HOST ? process.env.EXPRESS_HOST : 'loca
 class CreateOutage extends Component {
     constructor(props) {
         super(props);
-        // Eventually read from database
         this.state = {
-            title: "Pizza",
-            description: "Pizza eater",
-            status: "open"
+            title: "",
+            description: "",
+            status: ""
         }
     }
     componentDidMount() {
+        axios.get(`http://${express_host}/api/v1/outage/${this.params._id}`)
+            .then(res => {
+                this.setState({title: res.data.title})
+                this.setState({description: res.data.description})
+                this.setState({status: res.data.status})
+            });
     }
 
     componentWillUnmount() {

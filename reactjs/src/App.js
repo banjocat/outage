@@ -18,7 +18,7 @@ class App extends Component {
                 <div>
                     <Route exact path="/" component={ListOutage}/>
                     <Route path="/create" component={CreateOutage}/>
-                    <Route path="/update" component={ViewOutage}/>
+                    <Route path="/edit/:_id" component={ViewOutage}/>
                 </div>
             </Router>
         </MuiThemeProvider>

@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
 
+
 const express_host = process.env.EXPRESS_HOST ? process.env.EXPRESS_HOST : 'localhost:3000';
 class CreateOutage extends Component {
     constructor(props) {
@@ -36,6 +37,7 @@ class CreateOutage extends Component {
         })
             .then( (response) => {
                 console.log('Saved');
+                this.props.history.push('/');
             })
             .catch( (err) => {
                 console.log(err);

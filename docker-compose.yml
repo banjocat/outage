@@ -19,6 +19,8 @@ services:
   express:
     image: banjocat/outage_express
     build: ./express/.
+    volumes:
+      - "./express/index.js:/app/index.js"
     environment:
       MONGODB: mongodb
     ports:

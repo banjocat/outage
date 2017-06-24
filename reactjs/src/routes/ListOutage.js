@@ -24,12 +24,17 @@ class ViewOutage extends Component {
             });
     }
 
+
     Outages = () => {
+        let handleClick = (_id) => {
+            this.props.history.push(`/edit/${_id}`);
+        }
         const outages = this.state.outages.map( (outage) => 
             <ListItem
                 key={outage._id}
                 primaryText={outage.title}
                 secondaryText={outage.description}
+                onClick={handleClick.bind(this, outage._id)}
             />
         );
         return (

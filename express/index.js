@@ -1,12 +1,12 @@
+require('dotenv').config('.env');
 const express = require('express');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const githubStrategy = require('passport-github2');
 const User = require('./models/User.js');
 const OutageRoute = require('./controllers/Outage.js');
 
 
-const port = 3000;
 const app = express();
 //Setup the app
 app.use(bodyParser.json());
@@ -20,5 +20,5 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/api/v1/outage', OutageRoute);
 
-console.log(`Starting express on port ${port}`);
-app.listen(port);
+console.log(`Starting express on port ${process.env.express_port}`);
+app.listen(process.env.express_port);

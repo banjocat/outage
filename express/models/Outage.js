@@ -1,8 +1,6 @@
-
 const mongoose = require('mongoose');
-const mongo_host = 'MONGODB' in process.env ? process.env.MONGODB : 'localhost';
 
-mongoose.connect(`mongodb://${mongo_host}/outage`);
+mongoose.connect(`mongodb://${process.env.mongo_url}/outage`);
 
 module.exports = mongoose.model('Outage',
     {

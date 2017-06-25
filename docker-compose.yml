@@ -22,7 +22,8 @@ services:
     volumes:
       - "./express/index.js:/app/index.js"
     environment:
-      MONGODB: mongodb
+      mongo_url: mongodb
+      express_port: 3000
     ports:
       - "3000:3000"
     depends_on:

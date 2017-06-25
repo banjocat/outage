@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const githubStrategy = require('passport-github2');
-const User = require('./models/User.js');
-const OutageRoute = require('./controllers/Outage.js');
+const OutageRoute = require('./controllers/Outage');
+const UserRoute = require('./controllers/User');
 
 
 const app = express();
@@ -19,6 +19,7 @@ app.use(function(req, res, next) {
 
 // Routes
 app.use('/api/v1/outage', OutageRoute);
+app.use('/', UserRoute);
 
 console.log(`Starting express on port ${process.env.express_port}`);
 app.listen(process.env.express_port);

@@ -6,9 +6,11 @@ help:
 
 build_reactjs: ## Builds the reactjs docker container
 	cd ./reactjs && yarn build
+	@docker-compose build reactjs
 
-build_backend:
-	@docker-compose build
+build_backend: ## Build the backend (express)
+	@docker-compose build express
+
 
 build: build_reactjs build_backend
 

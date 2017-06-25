@@ -1,9 +1,10 @@
 # Outage
-Is a react practice project. Because everyone needs to know at least a little javascript.
+Is a react/express practice project. Because everyone needs to know at least a little javascript.
 
 Like all my practice projects there are set of goals
 #### Goals
 * ~~Should use reactjs~~
+* ~~Use express for backend~~
 * ~~Use some cool nosql database (maybe couchdb?) - Nah use mongodb~~
 * User creation with mongodb
 * User auth with ~~couchdb~~ mongodb and maybe nginx as well

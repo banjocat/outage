@@ -5,6 +5,7 @@ services:
     ports:
       - "27017:27017"
       - "28017:28017"
+  # Requires `make build` as this only packages static files
   reactjs:
     image: banjocat/outage_reactjs
     build: ./reactjs/.

@@ -12,15 +12,23 @@ reactjs: ## Builds the reactjs docker container
 express: ## Build the express container
 	@docker-compose build express
 
-
 push: build ## Push docker images
 	@docker-compose push
 
-
-start_backend: ## Starts just the backend for native reactjs development
+mongodb_up: ## Starts mongodb - primarly for testing
 	@docker-compose up -d mongodb
+
+express_up: ## Starts just the backend for native reactjs development
 	@docker-compose up -d express
-	@docker-compose stop reactjs
 
+backend_up: mongodb_up express_up ## Starts teh backend for native reactjs development
+	@docker-compose down reactjs
 
+reactjs_up: reactjs ## Builds and starts backend
+	@docker-compose up -d reactjs
 
+up: mongodb_up express_up reactjs_up ## Starts evertying but also builds reactjs
+	@docker-compose up -d reactjs
+
+deploy: push ## Deploys.. well eventually
+	@echo "Deploy no implemented yet"

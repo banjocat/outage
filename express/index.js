@@ -1,29 +1,11 @@
 const express = require('express');
 var bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const passport = require('passport');
+const githubStrategy = require('passport-github2');
+const User = require('./models/User.js');
+const Outage = require('./models/Outage.js');
 
-const mongo_host = 'MONGODB' in process.env ? process.env.MONGODB : 'localhost';
-mongoose.connect(`mongodb://${mongo_host}/test`);
 
-
-const Outage = mongoose.model('Outage',
-    {
-        title: {type: String, required: [true, 'Title required']},
-        description: {type: String, required: [true, 'Description required']},
-        state: {
-            type: String,
-            default: 'open',
-            lowercase: true,
-            validate: {
-                validator: (v) => {
-                    const choices = ['open', 'progress', 'closed'];
-                    return choices.includes(v);
-                },
-                message: ['{VALUE} is not open|progress|closed']
-            }
-        }
-    }
-);
 
 const app = express();
 app.use(bodyParser.json());
@@ -88,6 +70,7 @@ app.post('/api/v1/outage', (req, res) => {
         }
     });
 });
+
 
 console.log(`Starting express on port ${port}`);
 app.listen(port);

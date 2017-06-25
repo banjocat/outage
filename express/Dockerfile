@@ -2,8 +2,9 @@ from node:6
 
 RUN mkdir -p /app
 WORKDIR /app
-copy ./package.json .
+COPY ./package.json .
 RUN yarn
-copy ./index.js .
+COPY ./index.js .
+COPY ./models ./models
 
 CMD node index.js

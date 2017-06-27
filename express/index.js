@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 
 // Routes
 app.use('/api/v1/outage', OutageRoute);
-app.use('/', UserRoute);
+app.use('', UserRoute);
 
 console.log(`Starting express on port ${process.env.express_port}`);
 app.listen(process.env.express_port);

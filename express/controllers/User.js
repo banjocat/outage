@@ -10,19 +10,21 @@ passport.use(new githubStrategy({
     callbackURL: `${process.env.CALLBACK_URL}/auth/github/callback`
 },
     (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
+        console.log(profile._json);
         UserModel.findOneAndUpdate({githubId: profile.id},
             {
                 githubId: profile.id,
-                email: profile.email,
-                avatar_url: profile.avatar_url,
-                organization_url: profile.organization_url,
-                name: profile.name,
+                email: profile._json.email,
+                avatar_url: profile._json.avatar_url,
+                organization_url: profile._json.organizations_url,
+                name: profile._json.name,
 
             }, 
             {upsert: true},
             (err, user) => {
-                console.log(user);
+                if (err) {
+                    console.log(err);
+                }
             });
     })
 );
@@ -34,7 +36,8 @@ router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+      console.log('login completed.. redirect');
+      res.redirect('/api/v1/outage');
   });
 
 module.exports = router;

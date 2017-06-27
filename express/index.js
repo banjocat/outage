@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(session({
-    secret: 'keyboard frog',
+    secret: process.env.session_secret_key,
     resave: false,
     saveUnitialized: true
 }));

@@ -1,9 +1,10 @@
 require('dotenv').config('.env');
 const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const OutageRoute = require('./controllers/Outage');
-const Github = require('./auth/Github');
+const UserRoute = require('./controllers/User');
+const GithubAuth = require('./auth/Github');
 
 
 const app = express();
@@ -16,23 +17,17 @@ app.use(function(req, res, next) {
       next();
 });
 
+app.use(session({
+    secret: 'keyboard frog',
+    resave: false,
+    saveUnitialized: true
+}));
+app.use(GithubAuth.initialize());
+app.use(GithubAuth.session()); 
+
 // Routes
 app.use('/api/v1/outage', OutageRoute);
-
-// Auth
-app.use(Github.initialize());
-
-// Routes just for auth
-app.get('/auth/github',
-  Github.authenticate('github', { scope: [ 'user:email' ] }));
-
-app.get('/auth/github/callback', 
-  Github.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-      console.log('login completed.. redirect');
-      res.redirect('/api/v1/outage');
-  });
+app.use('/', UserRoute);
 
 
 console.log(`Starting express on port ${process.env.express_port}`);

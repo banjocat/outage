@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const OutageModel = require('../models/Outage');
+const passport = require('passport');
+const ensureLogin = require('connect-ensure-login').ensureLoggedIn;
 
-router.get('/:id', (req, res) => {
+
+router.get('/:id', ensureLogin(), (req, res) => {
     OutageModel.find({_id: req.params.id}, (err, outages) => {
         if (err) {
             res.status(500).send(err);
@@ -13,8 +16,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
-    console.log(req.body);
+router.put('/:id', ensureLogin(), (req, res) => {
     OutageModel.findOneAndUpdate({_id: req.params.id},
         {state: req.body.state, description: req.body.description},
         {upsert: false, runValidators: true},
@@ -28,7 +30,7 @@ router.put('/:id', (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
+router.post('/', ensureLogin(), (req, res) => {
     const outage = new OutageModel({
         title: req.body.title,
         description: req.body.description
@@ -43,7 +45,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/', ensureLogin(), (req, res) => {
     const query = OutageModel.find({});
     query.$where('this.state != "closed"');
     query.exec((err, outages) => {
@@ -55,6 +57,8 @@ router.get('/', (req, res) => {
         }
     });
 });
+
+
 
 module.exports = router;
 

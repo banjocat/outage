@@ -1,8 +1,7 @@
-const express = require('express');
 const passport = require('passport');
-const githubStrategy = require('passport-github2').Strategy;
-const router = express.Router();
+const githubStrategy = require('passport-github').Strategy;
 const UserModel = require('../models/User');
+
 
 passport.use(new githubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
@@ -25,19 +24,22 @@ passport.use(new githubStrategy({
                 if (err) {
                     console.log(err);
                 }
+                return done(err, user);
             });
     })
 );
+passport.serializeUser(function(user, done) {
+  // for the time being tou can serialize the user 
+  // object {accessToken: accessToken, profile: profile }
+  // In the real app you might be storing on the id like user.profile.id 
+  done(null, user);
+});
 
-router.get('/auth/github',
-  passport.authenticate('github', { scope: [ 'user:email' ] }));
+passport.deserializeUser(function(user, done) {
+  // If you are storing the whole user on session we can just pass to the done method, 
+  // But if you are storing the user id you need to query your db and get the user 
+  //object and pass to done() 
+  done(null, user);
+});
 
-router.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-      console.log('login completed.. redirect');
-      res.redirect('/api/v1/outage');
-  });
-
-module.exports = router;
+module.exports = passport;

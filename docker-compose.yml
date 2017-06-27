@@ -14,19 +14,19 @@ services:
     environment:
       EXPRESS_HOST: "express:3000"
     ports:
-      - "8001:80"
+      - "3000:80"
     depends_on:
       - express
   express:
     image: banjocat/outage_express
     build: ./express/.
     volumes:
-      - "./express/index.js:/app/index.js"
+      - "./express/:/app/"
     environment:
       mongo_url: mongodb
       express_port: 3000
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - mongodb
 

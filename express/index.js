@@ -2,9 +2,8 @@ require('dotenv').config('.env');
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const githubStrategy = require('passport-github2');
 const OutageRoute = require('./controllers/Outage');
-const UserRoute = require('./controllers/User');
+const Github = require('./auth/Github');
 
 
 const app = express();
@@ -19,7 +18,22 @@ app.use(function(req, res, next) {
 
 // Routes
 app.use('/api/v1/outage', OutageRoute);
-app.use('', UserRoute);
+
+// Auth
+app.use(Github.initialize());
+
+// Routes just for auth
+app.get('/auth/github',
+  Github.authenticate('github', { scope: [ 'user:email' ] }));
+
+app.get('/auth/github/callback', 
+  Github.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+      console.log('login completed.. redirect');
+      res.redirect('/api/v1/outage');
+  });
+
 
 console.log(`Starting express on port ${process.env.express_port}`);
 app.listen(process.env.express_port);

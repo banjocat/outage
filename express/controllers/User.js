@@ -22,5 +22,10 @@ router.get('/auth/user/:field', ensureLogin(), (req, res) => {
     res.status(200).jsonp(req.user[req.params.field]);
 });
 
+router.get('/auth/user/logged/in', (req, res) => {
+    const result = req.user ? 'yes' : 'no'
+    res.status(200).send(result);
+});
+
 
 module.exports = router;

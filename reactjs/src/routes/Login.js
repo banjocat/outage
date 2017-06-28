@@ -17,10 +17,6 @@ const styles = {
 
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-        console.log(props);
-    }
     handleLogin = () => {
         window.location.href=`http://${express_host}/auth/github`;
     }

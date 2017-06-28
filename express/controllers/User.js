@@ -24,9 +24,11 @@ router.get('/auth/user/:field', ensureLogin(), (req, res) => {
 
 router.get('/auth/user/logged/in', (req, res) => {
     if (req.user) {
-        res.status(200);
+        res.status(200).send('yes');
+        console.log('logged in');
     } else {
-        res.status(401);
+        res.status(200).send('no');
+        console.log('not logged in');
     }
 });
 

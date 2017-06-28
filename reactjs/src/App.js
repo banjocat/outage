@@ -5,7 +5,7 @@ import CreateOutage from './routes/CreateOutage';
 import ListOutage from './routes/ListOutage';
 import ViewOutage from './routes/ViewOutage';
 import Login from './routes/Login';
-import {isLoggedIn} from './auth/LoggedIn';
+import {isLoggedIn} from './auth/Auth';
 import {
       BrowserRouter as Router,
       Route
@@ -15,8 +15,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: true
+            loggedIn: false
         };
+    }
+
+    componentWillMount() {
+        isLoggedIn((state) => {
+            console.log('state', state);
+            this.setState({loggedIn: state});
+        });
     }
 
     render() {

@@ -7,11 +7,11 @@ router.get('/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
+    passport.authenticate('github', { failureRedirect: `${process.env.reactjs_url}/login` }),
   function(req, res) {
     // Successful authentication, redirect home.
       console.log('login completed.. redirect');
-      res.redirect('/api/v1/outage');
+      res.redirect(`${process.env.reactjs_url}/`);
   });
 
 router.get('/auth/user', ensureLogin(), (req, res) => {
@@ -23,8 +23,11 @@ router.get('/auth/user/:field', ensureLogin(), (req, res) => {
 });
 
 router.get('/auth/user/logged/in', (req, res) => {
-    const result = req.user ? 'yes' : 'no'
-    res.status(200).send(result);
+    if (req.user) {
+        res.status(200);
+    } else {
+        res.status(401);
+    }
 });
 
 

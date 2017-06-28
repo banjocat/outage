@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import Paper from 'material-ui/Paper';
 
-const express_host = process.env.EXPRESS_HOST || 'localhost:3000';
+const express_host =  'localhost:4000';
 const styles = {
   button: {
     marginLeft: '40%',
@@ -17,6 +17,10 @@ const styles = {
 
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props);
+    }
     handleLogin = () => {
         window.location.href=`http://${express_host}/auth/github`;
     }

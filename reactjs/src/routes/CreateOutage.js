@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 
-const express_host = process.env.EXPRESS_HOST ? process.env.EXPRESS_HOST : 'localhost:3000';
+const express_host =  'localhost:4000';
 class CreateOutage extends Component {
     constructor(props) {
         super(props);

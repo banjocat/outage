@@ -1,0 +1,8 @@
+FROM node:6
+
+RUN mkdir -p /app
+WORKDIR /app
+COPY ./package.json .
+RUN yarn
+CMD yarn start
+

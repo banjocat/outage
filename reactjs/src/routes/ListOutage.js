@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
 
-const express_host = process.env.EXPRESS_HOST || 'localhost:3000';
+const express_host =  'localhost:4000';
 class ViewOutage extends Component {
     constructor(props) {
         super(props);

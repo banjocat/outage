@@ -11,4 +11,4 @@ reactjs_url="http://127.0.0.1:3000"
 
 ```
 
-Also is required to make a github oAuth app with callback to ``127.0.0.1:300/auth/github/callback``
+Also is required to make a github oAuth app with callback to ``http://127.0.0.1:3090/auth/github/callback``

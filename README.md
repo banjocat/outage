@@ -10,5 +10,5 @@ Like all my practice projects there are set of goals
 * ~~User auth with ~~couchdb~~ mongodb and maybe nginx as well~~
 * ~~User should be able to then create an outage~~
 * ~~User then should be able to search for current outages and their status~~
-* Hookup express authentication and authorization to react
+* ~~Hookup express authentication and authorization to react~~
 * Use mesos to deploy

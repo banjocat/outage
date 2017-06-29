@@ -7,7 +7,7 @@ GITHUB_CLIENT_ID=XXXXXXXXXXXXXXX
 GITHUB_CLIENT_SECRET=XXXXXXXXXXXXXXXXXXXX
 CALLBACK_URL=http://127.0.0.1:3000 # for github
 session_secret_key='awesome frog'
-reactjs_url="http://localhost:3000"
+reactjs_url="http://127.0.0.1:3000" 
 
 ```
 

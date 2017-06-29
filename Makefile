@@ -5,30 +5,13 @@ help:
 
 build: reactjs express ## Build all docker images
 
-reactjs: ## Builds the reactjs docker container
+reactjs: ## Builds the reactjs docker production container and push it
 	cd ./reactjs && yarn build
-	@docker-compose build reactjs
+	@docker build -t banjocat/outage_reacjts -f reactjs/Dockerfile-prod ./reactjs/.
+	@docker push banjocat/outage_reactjs
 
-express: ## Build the express container
-	@docker-compose build express
+express: ## Build the express container production and push it
+	@docker build -t banjocat/outage_express ./express/.
+	@docker push banjocat/outage_reactjs
 
-push: build ## Push docker images
-	@docker-compose push
 
-mongodb_up: ## Starts mongodb - primarly for testing
-	@docker-compose up -d mongodb
-
-express_up: ## Starts just the backend for native reactjs development
-	@docker-compose up -d express
-
-backend_up: mongodb_up express_up ## Starts teh backend for native reactjs development
-	@docker-compose down reactjs
-
-reactjs_up: reactjs ## Builds and starts backend
-	@docker-compose up -d reactjs
-
-up: mongodb_up express_up reactjs_up ## Starts evertying but also builds reactjs
-	@docker-compose up -d reactjs
-
-deploy: push ## Deploys.. well eventually
-	@echo "Deploy no implemented yet"

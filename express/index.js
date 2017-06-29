@@ -11,7 +11,7 @@ const app = express();
 //Setup the app
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
-      res.header("Access-Control-Allow-Origin", process.env.nginx_url);
+      res.header("Access-Control-Allow-Origin", process.env.reactjs_url);
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       res.header("Access-Control-Allow-Credentials", "true");
       res.header("Access-Control-Allow-Methods", "GET, POST, PUT");
@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
 app.use(session({
     secret: process.env.session_secret_key,
     resave: false,
-    saveUnitialized: true
+    saveUnitialized: true,
 }));
 app.use(GithubAuth.initialize());
 app.use(GithubAuth.session()); 

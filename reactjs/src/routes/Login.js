@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import Paper from 'material-ui/Paper';
 
-const express_host =  'localhost:4000';
+const express_host =  '127.0.0.1:4000';
 const styles = {
   button: {
     marginLeft: '40%',

@@ -24,7 +24,7 @@ services:
     environment:
       mongo_url: mongodb
       express_port: 4000
-      reactjs_url: http://localhost:3000
+      reactjs_url: http://127.0.0.1:3000
 
     ports:
       - "4000:4000"

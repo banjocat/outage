@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 
-const express_host =  'localhost:4000';
+const express_host =  '127.0.0.1:4000';
 class CreateOutage extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +34,7 @@ class CreateOutage extends Component {
         axios.post(`http://${express_host}/api/v1/outage`, {
             title: this.state.title,
             description: this.state.description
-        })
+        }, {withCredentials: true})
             .then( (response) => {
                 console.log('Saved');
                 this.props.history.push('/');

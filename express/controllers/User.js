@@ -10,7 +10,7 @@ router.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: `${process.env.reactjs_url}/login` }),
   function(req, res) {
     // Successful authentication, redirect home.
-      console.log('login completed.. redirect');
+      req.session.cookie.expires = false;
       res.redirect(`${process.env.reactjs_url}/`);
   });
 

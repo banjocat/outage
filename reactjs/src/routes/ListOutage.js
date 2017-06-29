@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
 
-const express_host =  'localhost:4000';
+const express_host =  '127.0.0.1:4000';
 class ViewOutage extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +17,8 @@ class ViewOutage extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://${express_host}/api/v1/outage`)
+        axios.get(`http://${express_host}/api/v1/outage`,
+            {withCredentials: true})
             .then(res => {
                 const outages = res.data;
                 this.setState({outages: outages});

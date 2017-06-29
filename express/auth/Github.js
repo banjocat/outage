@@ -16,7 +16,6 @@ passport.use(new githubStrategy({
                 avatar_url: profile._json.avatar_url,
                 organization_url: profile._json.organizations_url,
                 name: profile._json.name,
-
             }, 
             {upsert: true},
             (err, user) => {
